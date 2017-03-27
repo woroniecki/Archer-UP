@@ -1,0 +1,147 @@
+Made by
+Author:
+    Damian Woroniecki
+URL:
+    kodujebolubie.pl
+EMAIL CONTACT:
+    damianworoniecki@kodujebolubie.pl
+
+Graphics:
+Free platformer game tileset
+Free deset platformer tileset
+Winter platformer game tileset
+Free graveyard tileset
+
+Title:
+    girl archer
+
+Author:
+    marsza
+
+URL:
+    http://opengameart.org/content/girl-archer
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * drawing-2.svg
+
+----------------------------------------
+
+Title:
+    Shady Tree Game Decoration
+
+Author:
+    bevouliin.com
+
+URL:
+    http://opengameart.org/content/shady-tree-game-decoration
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * shady_tree_game_decoration.zip
+
+----------------------------------------
+
+Title:
+    Physica assets
+
+Author:
+    Buch
+
+URL:
+    http://opengameart.org/content/physica-assets
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Credit me as Buch and link back to my OGA profile page.
+
+File(s):
+    * icons.png
+    * icons.svg
+    * ui.png
+    * ui.svg
+
+----------------------------------------
+
+Title:
+    Bevouliin Free Flappy Monster Sprite Sheets
+
+Author:
+    bevouliin.com
+
+URL:
+    http://opengameart.org/content/bevouliin-free-flappy-monster-sprite-sheets
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * free flappy monster sprite sheets.zip
+
+----------------------------------------
+
+Title:
+    Rainbow Ball
+
+Author:
+    BananaOwl
+
+URL:
+    http://opengameart.org/content/rainbow-ball
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * RainbowBall.png
+
+----------------------------------------
+
+Title:
+    Wormhole Monster Enemy Game Character
+
+Author:
+    bevouliin.com
+
+URL:
+    http://opengameart.org/content/wormhole-monster-enemy-game-character
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * wormhole_monster_enemy_game_character.zip
+
+----------------------------------------
+
+Title:
+    Bevouliin Shadow Skull Game Asset
+
+Author:
+    bevouliin.com
+
+URL:
+    http://opengameart.org/content/bevouliin-shadow-skull-game-asset
+
+License(s):
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * Shadow Skull Sprite sheet for game developers.zip
+
+----------------------------------------
+
+
+
+Sounds:
+Music - http://freemusicarchive.org/music/Little_Glass_Men/The_Age_of_Insignificance/I_Dare_You
+Sounds
+Shoot - author - DinoCreek
+Hit - author - DinoCreek 
