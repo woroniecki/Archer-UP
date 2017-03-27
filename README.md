@@ -6,7 +6,7 @@
 
 <div>Archer'UP is mobile game based on accelerometer.</div>
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/RDV9srzgkgI/0.jpg)](http://www.youtube.com/watch?v=RpI-y0wTMDA "City Mayor")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/RpI-y0wTMDA/0.jpg)](http://www.youtube.com/watch?v=RpI-y0wTMDA "Archer'UP")
 
 <div>Made with Unity3D</div>
 
