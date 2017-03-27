@@ -12,4 +12,4 @@
 
 <h2>License</h2>
 
-<a href="">MIT</a>
+<a href="https://github.com/woroniecki/Archer-UP/blob/master/LICENSE">MIT</a>
