@@ -7,13 +7,21 @@ using UnityEngine.UI;
 public class LevelMenu : MonoBehaviour
 {
 
+    public enum difficultyLevel {
+        Easy = 0,
+        Medium = 1,
+        Difficult = 2
+    };
+
     public Transform difficultButton;
     public Transform mediumButton;
     public Transform easyButton;
 
     void Start()
     {
-        setLevel(PlayerPrefs.GetString(StateVar.prefLevelName, "Medium"));
+        SetLevel(SaveManager.instance.data.GetData(
+            StateVar.prefLevelName, (int)difficultyLevel.Medium, SaveData.saveDictionariesTypes.options)
+            );
     }
 
     /// <summary>
@@ -35,30 +43,44 @@ public class LevelMenu : MonoBehaviour
     /// Set color of button which should be active (this difficult level is sets)
     /// </summary>
     /// <param name="levelName">name of level (Difficult, Medium, Easy) must be same as a button</param>
-    public void setLevel(string levelName)
+    public void SetLevel(int difficultLevel)
     {
         setButtonState(difficultButton, StateVar.getTextColor(Menu.menuType), 30);
         setButtonState(mediumButton, StateVar.getTextColor(Menu.menuType), 30);
         setButtonState(easyButton, StateVar.getTextColor(Menu.menuType), 30);
-        setButtonState(Utility.FindChildByName(levelName, transform),
+        setButtonState(Utility.FindChildByName(((difficultyLevel)difficultLevel).ToString(), transform),
                        StateVar.getHeaderColor(Menu.menuType), 50);
-        PlayerPrefs.SetString(StateVar.prefLevelName, levelName);
+        SaveManager.instance.data.SetData(StateVar.prefLevelName, (int)difficultLevel, SaveData.saveDictionariesTypes.options);
     }
 
     /// <summary>
     /// get amount to multiply time in level which depends of difficult level set
+    /// Easy - 0
+    /// Medium - 1
+    /// Difficult - 2
     /// </summary>
     /// <returns>amount to multiply level time</returns>
     public static float getTimeAmountMultiply()
     {
-        string difficultLevel = PlayerPrefs.GetString(StateVar.prefLevelName);
-        if (difficultLevel == "Difficult")
-            return 1;
-        if (difficultLevel == "Medium")
-            return 2;
-        if (difficultLevel == "Easy")
-            return 4;
+        difficultyLevel difficultLevel = GetCurrentDifficultyLevel();
+        switch (difficultLevel) {
+            case difficultyLevel.Easy:
+                return 4;
+            case difficultyLevel.Medium:
+                return 2;
+            case difficultyLevel.Difficult:
+                return 1;
+        }
         Debug.Log("LevelMenu:getTimeAmountMultiply() Difficult level not exist");
         return 2;
+    }
+
+    public static difficultyLevel GetCurrentDifficultyLevel()
+    {
+        return (difficultyLevel)SaveManager.instance.data.GetData(
+            StateVar.prefLevelName, 
+            (int)difficultyLevel.Medium, 
+            SaveData.saveDictionariesTypes.options
+            );
     }
 }

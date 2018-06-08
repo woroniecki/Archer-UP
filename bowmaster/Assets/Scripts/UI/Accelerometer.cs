@@ -4,21 +4,35 @@ using System;
 public class Accelerometer : MonoBehaviour
 {
 
-    private PlayerController playerController;
-
-    void Start()
-    {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        if (playerController == null)
-            Debug.LogError("Accelerometer:Start() Couldn't find PlayerController component");
-    }
+    [Range(-0.01f, 2f)]
+    public float instantValue = -0.01f;
+    public PlayerController playerController;
 
     /// <summary>
     /// by accelerometer input x set angle of camera quateration and arms of player character
     /// </summary>
-    void FixedUpdate()
+    void LateUpdate()
     {
-        float angle = 90 - (float)Math.Round((float)MathFuncs.equationX(Input.acceleration.x + 1, 2, 180), 0);
+
+        float accelerationValue = Input.acceleration.x + 1;
+
+#if UNITY_EDITOR
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            accelerationValue = -1 * Input.GetAxis("Vertical2") + 1;
+        }
+        else {
+            if (Input.GetAxis("Vertical") != 0) {
+                accelerationValue = Input.GetAxis("Vertical") + 1;
+            }
+        }
+        if(instantValue != -0.01f)
+        {
+            accelerationValue = instantValue;
+        }
+#endif
+
+        float angle = 90 - (float)Math.Round((float)MathFuncs.equationX(accelerationValue, 2, 180), 0);
         angle *= 2;
         angle = MathFuncs.forks(angle, 180, -180);
         angle = MathFuncs.getValueInRange(angle, -90, 90);

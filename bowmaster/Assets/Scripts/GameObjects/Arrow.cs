@@ -95,9 +95,11 @@ public class Arrow : removeGrabage
         {
             rb.velocity = Vector3.zero;
             rb.Sleep();
+            rb.isKinematic = true;
         }
         else
         {
+            rb.isKinematic = false;
             rb.gravityScale = GameController.gravityScale;
             rb.WakeUp();
         }

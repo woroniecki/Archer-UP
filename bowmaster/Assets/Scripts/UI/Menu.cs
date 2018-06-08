@@ -28,12 +28,12 @@ public class Menu : MonoBehaviour
         //resetTotalScore(0);
         score = getTotalScore();
         if (menuType == "")
-            setMenuType();
+            SetMenuType();
         loadMenuType(menuType);
         if (mainMenuLoad)
         {
-            setLevels();
-            setBG(menuType);
+            SetLevels();
+            SetBG(menuType);
         }
     }
 
@@ -48,7 +48,7 @@ public class Menu : MonoBehaviour
         {
             for (int x = 0; x < StateVar.levelAmountPerLevel; x++)
             {
-                total += PlayerPrefs.GetInt(StateVar.levelTypes[y] + (x + 1).ToString(), 0);
+                total += SaveManager.instance.data.GetData(StateVar.levelTypes[y] + (x + 1).ToString(), 0, SaveData.SaveTypeByLevel());
             }
         }
         return total;
@@ -65,9 +65,9 @@ public class Menu : MonoBehaviour
             for (int x = 0; x < StateVar.levelAmountPerLevel; x++)
             {
                 if (points > 3)
-                    PlayerPrefs.SetInt(StateVar.levelTypes[y] + (x + 1).ToString(), 3);
+                    SaveManager.instance.data.SetData(StateVar.levelTypes[y] + (x + 1).ToString(), 3, SaveData.SaveTypeByLevel());
                 else
-                    PlayerPrefs.SetInt(StateVar.levelTypes[y] + (x + 1).ToString(), points);
+                    SaveManager.instance.data.SetData(StateVar.levelTypes[y] + (x + 1).ToString(), points, SaveData.SaveTypeByLevel());
                 points -= 3;
                 if (points < 0)
                     points = 0;
@@ -75,7 +75,7 @@ public class Menu : MonoBehaviour
         }
     }
 
-    void setLevels()
+    void SetLevels()
     {
         GameObject iconLevel = Resources.Load("UI/Level/LevelButton", typeof(GameObject)) as GameObject;
         GameObject LevelCanvas = null;
@@ -107,7 +107,12 @@ public class Menu : MonoBehaviour
                 }
                 string capturedSceneName = StateVar.levelTypes[y] + (x + 1).ToString();
                 icon.GetComponent<Button>().onClick.AddListener(() => loadScene(capturedSceneName));
-                for (int i = 0; i < PlayerPrefs.GetInt(StateVar.levelTypes[y] + (x + 1).ToString(), 0); i++)
+                for (int i = 0; 
+                    i < SaveManager.instance.data.GetData(
+                        StateVar.levelTypes[y] + (x + 1).ToString(), 
+                        0, 
+                        SaveData.SaveTypeByLevel()); 
+                    i++)
                 {
                     Transform starTransform = Utility.FindInChildsByName("Star" + (i + 1).ToString(), icon.transform);
                     starTransform.GetComponent<Image>().enabled = true;
@@ -117,7 +122,7 @@ public class Menu : MonoBehaviour
         }
     }
 
-    void setMenuType()
+    void SetMenuType()
     {
         int indexLevelType = 0;
         for (int y = 0; y < StateVar.typeAmount; y++)
@@ -132,7 +137,7 @@ public class Menu : MonoBehaviour
         menuType = StateVar.levelTypes[indexLevelType];
     }
 
-    void setBG(string type)
+    void SetBG(string type)
     {
         Transform bg = Utility.FindInChildsByName("BG", transform);
         if (bg != null)

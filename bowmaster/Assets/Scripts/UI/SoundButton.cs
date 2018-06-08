@@ -1,49 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundButton : MonoBehaviour
+public class SoundButton : TextButton
 {
-
-    private Text textButton;
-    public static string prefSoundState = "Sound";
-
-    private string activeSoundText = "Sound: ON";
-    private string inactiveSoundText = "Sound: OFF";
-
-    void Start()
+    void Awake()
     {
-        textButton = Utility.FindChildByName("Text", transform).GetComponent<Text>();
-        setSoundVolumeText();
+        prefSaveState = "Sound";
+        activeText = "Sound: ON";
+        inactiveText = "Sound: OFF";
     }
 
-    public void setSoundVolumeText()
+    public override void SetText()
     {
-        int state = PlayerPrefs.GetInt(prefSoundState, 0);
-        if (state == 0)
-            textButton.text = inactiveSoundText;
-        else
-            textButton.text = activeSoundText;
-        setSoundVolume();
+        base.SetText();
+        SetSoundVolume();
     }
 
-    public void ChangeVolume()
+    public override void ChangeValue()
     {
-        int state = PlayerPrefs.GetInt(prefSoundState, 0);
-        if (state == 0)
-        {
-            PlayerPrefs.SetInt(prefSoundState, 1);
-            textButton.text = activeSoundText;
-        }
-        else
-        {
-            PlayerPrefs.SetInt(prefSoundState, 0);
-            textButton.text = inactiveSoundText;
-        }
-        setSoundVolume();
+        base.ChangeValue();
+        SetSoundVolume();
     }
 
-    public void setSoundVolume()
+    public void SetSoundVolume()
     {
-        SoundsManager.Instance.setVolume(PlayerPrefs.GetInt(prefSoundState, 0));
+        SoundsManager.Instance.setVolume(SaveManager.instance.data.GetData(prefSaveState, 0, SaveData.saveDictionariesTypes.options));
     }
 }

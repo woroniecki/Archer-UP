@@ -11,7 +11,7 @@ public class Utility
     /// <returns>return child if found or null</returns>
     public static Transform FindChildByName(string name, Transform object_)
     {
-        Transform childObject = object_.FindChild(name);
+        Transform childObject = object_.Find(name);
         if (childObject != null)
             return childObject;
         Debug.Log("Couldn't find child " + name + " in object " + object_.name);

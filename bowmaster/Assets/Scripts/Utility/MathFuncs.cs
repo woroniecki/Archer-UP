@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MathFuncs
+public static class MathFuncs
 {
 
     /// <summary>
@@ -113,5 +113,95 @@ public class MathFuncs
         return new Vector3(Mathf.Acos(cos_ba) * Mathf.Rad2Deg,
                            Mathf.Acos(cos_bc) * Mathf.Rad2Deg,
                            Mathf.Acos(cos_ca) * Mathf.Rad2Deg);
+    }
+
+    // Find the points where the two circles intersect.
+    public static int FindCircleCircleIntersections(
+        float cx0, float cy0, float radius0,
+        float cx1, float cy1, float radius1,
+        out Vector2 intersection1, out Vector2 intersection2)
+    {
+        // Find the distance between the centers.
+        float dx = cx0 - cx1;
+        float dy = cy0 - cy1;
+        float dist = Mathf.Sqrt(dx * dx + dy * dy);
+
+        // See how many solutions there are.
+        if (dist > radius0 + radius1)
+        {
+            // No solutions, the circles are too far apart.
+            intersection1 = new Vector2(float.NaN, float.NaN);
+            intersection2 = new Vector2(float.NaN, float.NaN);
+            return -1;
+        }
+        else if (dist < Mathf.Abs(radius0 - radius1))
+        {
+            // No solutions, one circle contains the other.
+            intersection1 = new Vector2(float.NaN, float.NaN);
+            intersection2 = new Vector2(float.NaN, float.NaN);
+            return -2;
+        }
+        else if ((dist == 0) && (radius0 == radius1))
+        {
+            // No solutions, the circles coincide.
+            intersection1 = new Vector2(float.NaN, float.NaN);
+            intersection2 = new Vector2(float.NaN, float.NaN);
+            return -3;
+        }
+        else
+        {
+            // Find a and h.
+            float a = (radius0 * radius0 -
+                radius1 * radius1 + dist * dist) / (2 * dist);
+            float h = Mathf.Sqrt(radius0 * radius0 - a * a);
+
+            // Find P2.
+            float cx2 = cx0 + a * (cx1 - cx0) / dist;
+            float cy2 = cy0 + a * (cy1 - cy0) / dist;
+
+            // Get the points P3.
+            intersection1 = new Vector2(
+                (float)(cx2 + h * (cy1 - cy0) / dist),
+                (float)(cy2 - h * (cx1 - cx0) / dist));
+            intersection2 = new Vector2(
+                (float)(cx2 - h * (cy1 - cy0) / dist),
+                (float)(cy2 + h * (cx1 - cx0) / dist));
+
+            if (dist == radius0 + radius1) return 1;
+            return 2;
+        }
+    }
+
+    public static int IsInsideCircle(float cx0, float cy0, float radius0,
+        float cx1, float cy1, float radius1)
+    {
+        float dx = cx0 - cx1;
+        float dy = cy0 - cy1;
+        float dist = Mathf.Sqrt(dx * dx + dy * dy);
+
+        // See how many solutions there are.
+        if (dist > radius0 + radius1)
+        {
+            // No solutions, the circles are too far apart.
+            return 1;
+        }
+        else if (dist < Mathf.Abs(radius0 - radius1))
+        {
+            // No solutions, one circle contains the other.
+            return -1;
+        }
+        else if ((dist == 0) && (radius0 == radius1))
+        {
+            // No solutions, the circles coincide.
+            return 0;
+        }
+        return 2;
+    }
+
+    public static void LookAt2D(this Transform t, Vector3 target){
+        Vector3 diff = target - t.position;
+        diff.Normalize();
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        t.rotation = Quaternion.Euler(0f, 0f, rot_z);
     }
 }

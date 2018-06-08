@@ -34,7 +34,7 @@ public class StarsContainer : MonoBehaviour
     public int addStar()
     {
         amount += 1;
-        gameController.setShootedTargetsAmount(amount);
+        gameController.SetShootedTargetsAmount(amount);
         return amount - 1;
     }
 

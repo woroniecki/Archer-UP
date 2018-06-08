@@ -54,6 +54,10 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+
+        if (SaveManager.instance == null)
+            SaveManager.Create();
+
         isGameDone = false;
         gravityScaleStatic = gravityScale_;
     }
@@ -61,7 +65,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         timeForLevel *= LevelMenu.getTimeAmountMultiply();
-        setDetailsLevel();
+        SetDetailsLevel();
         Menu.loadMenuType(StateVar.getHeaderColor(type), StateVar.getTextColor(type));
         hourglass = GameObject.FindGameObjectWithTag("Hourglass").GetComponent<Hourglass>();
         hourglass.startTiming(timeForLevel);
@@ -73,7 +77,7 @@ public class GameController : MonoBehaviour
     /// </summary>
     void OnEnable()
     {
-        EventManager.StartListening("Endgame", endGame);
+        EventManager.StartListening("Endgame", EndGame);
     }
 
     /// <summary>
@@ -93,7 +97,7 @@ public class GameController : MonoBehaviour
     /// "forest", "desert", "winter", "graveyard"
     /// it depeneds on scene name
     /// </summary>
-    void setDetailsLevel()
+    void SetDetailsLevel()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (!int.TryParse(sceneName[sceneName.Length - 1].ToString(), out levelNO))
@@ -123,7 +127,7 @@ public class GameController : MonoBehaviour
     /// set shooted targets amount
     /// </summary>
     /// <param name="amount">amount to set</param>
-    public void setShootedTargetsAmount(int amount)
+    public void SetShootedTargetsAmount(int amount)
     {
         shootedTargetsAmount = amount;
     }
@@ -134,7 +138,7 @@ public class GameController : MonoBehaviour
     /// active menu canvas
     /// </summary>
     /// <param name="trigger"></param>
-    void endGame(Transform trigger)
+    void EndGame(Transform trigger)
     {
         gameDone = true;
         Transform highScoreT = Utility.FindChildByName("HighScore", transform);
@@ -145,11 +149,11 @@ public class GameController : MonoBehaviour
             Transform starTransform = Utility.FindInChildsByName("Star" + (i + 1).ToString(), scoreT.transform);
             Utility.FindChildByName("Star", starTransform).GetComponent<Image>().enabled = true;
         }
-        int highScore = PlayerPrefs.GetInt(type + levelNO.ToString(), 0);
+        int highScore = SaveManager.instance.data.GetData(type + levelNO.ToString(), 0, SaveData.SaveTypeByLevel());
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt(type + levelNO.ToString(), highScore);
+            SaveManager.instance.data.SetData(type + levelNO.ToString(), highScore, SaveData.SaveTypeByLevel());
         }
         for (int i = 0; i < highScore; i++)
         {
@@ -169,17 +173,17 @@ public class GameController : MonoBehaviour
         Menu.setActiveCanvas_("MainCanvas");
     }
 
-    public void realoadScene()
+    public void RealoadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void loadMenuScene()
+    public void LoadMenuScene()
     {
         SceneManager.LoadScene("Menu");
     }
 
-    public void loadNextLevel()
+    public void LoadNextLevel()
     {
         SceneManager.LoadScene(typeNext + levelNONext);
     }
