@@ -26,9 +26,13 @@ public class Menu : MonoBehaviour
     void Awake()
     {
         //resetTotalScore(0);
+        SetMenu();
+    }
+
+    public void SetMenu()
+    {
         score = getTotalScore();
-        if (menuType == "")
-            SetMenuType();
+        SetMenuType();
         loadMenuType(menuType);
         if (mainMenuLoad)
         {
@@ -75,7 +79,7 @@ public class Menu : MonoBehaviour
         }
     }
 
-    void SetLevels()
+    public void SetLevels()
     {
         GameObject iconLevel = Resources.Load("UI/Level/LevelButton", typeof(GameObject)) as GameObject;
         GameObject LevelCanvas = null;
@@ -193,6 +197,7 @@ public class Menu : MonoBehaviour
         {
             canvas.GetComponent<Canvas>().enabled = false;
         }
+
         GameObject.Find(name).GetComponent<Canvas>().enabled = true;
     }
 

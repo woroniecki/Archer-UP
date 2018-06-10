@@ -10,7 +10,7 @@ public class SaveData : ScriptableObject {
 
     public enum saveDictionariesTypes
     {
-        options = 0, easy = 1, medium = 2, difficult = 3
+        options = 0, easy = 1, medium = 2, difficult = 3, player = 4
     }
 
     [Serializable]
@@ -108,7 +108,7 @@ public class SaveData : ScriptableObject {
         if (keyIndex != -1)
             return dictionaries[type].GetValue(keyIndex);
         SetData (key, defaultValue, type);
-        Debug.Log("?");
+
         return defaultValue;
     }
 

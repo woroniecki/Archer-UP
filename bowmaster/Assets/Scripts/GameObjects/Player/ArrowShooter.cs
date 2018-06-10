@@ -43,7 +43,7 @@ public class ArrowShooter : MonoBehaviour
     /// <summary>
     /// Charge arrow
     /// </summary>
-    void Charge(float time = 0.7f)
+    void Charge(float time = 1f)
     {
         chargeAnimation.RunAnimation (time);
     }
