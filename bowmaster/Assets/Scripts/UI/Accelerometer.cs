@@ -1,20 +1,34 @@
 ﻿using UnityEngine;
 using System;
 
-public class Accelerometer : MonoBehaviour
+public class Accelerometer : Singleton<Accelerometer>
 {
+    static public float accelerometerInputMultiplier;
+
+    public static Accelerometer instance;
 
     [Range(-0.01f, 2f)]
     public float instantValue = -0.01f;
     public PlayerController playerController;
 
+    private void OnEnable()
+    {
+        if(instance == null)
+            instance = this;
+    }
+
+    private void OnDisable()
+    {
+        instance = null;
+    }
+
     /// <summary>
     /// by accelerometer input x set angle of camera quateration and arms of player character
     /// </summary>
-    void LateUpdate()
+    void FixedUpdate()
     {
 
-        float accelerationValue = Input.acceleration.x + 1;
+        float accelerationValue = (Input.acceleration.x * accelerometerInputMultiplier) + 1;
 
 #if UNITY_EDITOR
         if (Input.GetJoystickNames().Length > 0)

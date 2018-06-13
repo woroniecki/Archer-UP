@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Controls gravity level, game end and menuUI
 /// </summary>
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
 
     /// <summary>
@@ -67,16 +67,9 @@ public class GameController : MonoBehaviour
         timeForLevel *= LevelMenu.getTimeAmountMultiply();
         SetDetailsLevel();
         Menu.loadMenuType(StateVar.getHeaderColor(type), StateVar.getTextColor(type));
-        hourglass = GameObject.FindGameObjectWithTag("Hourglass").GetComponent<Hourglass>();
+        hourglass = Hourglass.instance;
         hourglass.startTiming(timeForLevel);
         maxShootedTargetsAmount = GameObject.FindGameObjectsWithTag("Target").Length;
-    }
-
-    /// <summary>
-    /// Listening Endgame
-    /// </summary>
-    void OnEnable()
-    {
         EventManager.StartListening("Endgame", EndGame);
     }
 

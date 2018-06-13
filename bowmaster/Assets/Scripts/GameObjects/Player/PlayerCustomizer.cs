@@ -40,9 +40,9 @@ public class PlayerCustomizer : MonoBehaviour {
         for (int i = 0; i < parts.Count; i++)
         {
             float value = (float)SaveManager.instance.data.GetData(
-                    parts[i].part.ToString(), PlayerCustomizationUI.defaultColor, SaveData.saveDictionariesTypes.player);
+                    parts[i].part.ToString(), PlayerCustomizationUI.defineRandomCustomization, SaveData.saveDictionariesTypes.player);
 
-            value /= 1000f;
+            value /= 100f;
 
             parts[i].renderer.material.SetFloat("_Hue",
                 value

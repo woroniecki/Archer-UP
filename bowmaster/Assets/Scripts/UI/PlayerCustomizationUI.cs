@@ -15,7 +15,24 @@ public class PlayerCustomizationUI : MonoBehaviour
     }
 
     const string unlockedSaveString = "unlockedPlayerCustomzitaion";
-    public const int defaultColor = 65;
+    const string defaultColorSaveString = "defaultCustomizzationColor";
+    public static int _isCustomizationDefinded = -1;
+    public static int defineRandomCustomization {
+        get {
+            if (_isCustomizationDefinded != -1)
+                return _isCustomizationDefinded;
+            string[] keys = System.Enum.GetNames(typeof(customizationPart));
+            _isCustomizationDefinded = SaveManager.instance.data.GetData(keys[0], -1, SaveData.saveDictionariesTypes.player);
+            if (_isCustomizationDefinded == -1) {
+                _isCustomizationDefinded = 1;
+                for (int i = 0; i < keys.Length; i++) {
+                    SaveManager.instance.data.SetData(keys[i], Random.Range(0, 100), SaveData.saveDictionariesTypes.player, false);
+                }
+                SaveManager.instance.data.Save(SaveData.saveDictionariesTypes.player);
+            }
+            return SaveManager.instance.data.GetData(keys[0], Random.Range(0, 100), SaveData.saveDictionariesTypes.player);
+        }
+    }
 
     [SerializeField]
     Text unlockBTNText;
@@ -92,9 +109,9 @@ public class PlayerCustomizationUI : MonoBehaviour
         for (int i = 0; i < parts.Count; i++)
         {
             float value = (float)SaveManager.instance.data.GetData(
-                    parts[i].part.ToString(), defaultColor, SaveData.saveDictionariesTypes.player);
+                    parts[i].part.ToString(), defineRandomCustomization, SaveData.saveDictionariesTypes.player);
 
-            value /= 1000f;
+            value /= 100f;
 
             parts[i].img.material.SetFloat("_Hue",
                 value

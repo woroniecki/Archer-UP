@@ -4,7 +4,7 @@
 /// <summary>
 /// Controls arrow shooting
 /// </summary>
-public class ArrowShooter : MonoBehaviour
+public class ArrowShooter : Singleton<ArrowShooter>
 {
     public ChargeAnimation chargeAnimation;
     public AudioClip shootSound;

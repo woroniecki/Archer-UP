@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+
 /// <summary>
 /// Controls player body
 /// </summary>
@@ -23,20 +23,6 @@ public class PlayerController : ArrowShooter
     void Start()
     {
         base.DoInitialization();
-        //arm_front = Utility.FindChildByName("arm_f", transform);
-        //arm_back = Utility.FindChildByName("arm_b", transform);
-        //if (arm_back == null)
-        //    Debug.LogError("PlayerController:Start() arm_back is not assigned");
-
-        //forearm_back = Utility.FindChildByName("forearm_b", arm_back);
-        //if (forearm_back == null)
-        //    Debug.LogError("PlayerController:Start() forearm_back is not assigned");
-
-        //armB_len = MathFuncs.lengthBetweenPoints(arm_back.position.x, arm_back.position.y,
-        //                                         forearm_back.position.x, forearm_back.position.y);
-        //Transform hand = Utility.FindChildByName("arrow_point", forearm_back);
-        //fore_armB_len = MathFuncs.lengthBetweenPoints(forearm_back.position.x, forearm_back.position.y,
-        //                                              hand.position.x, hand.position.y) + 0.1f;
         _lengthForeArm = Vector2.Distance(cross_arm_back.position, forearm_back.position);
         _lengthBackArm = Vector2.Distance(cross_arm_back.position, arm_back.position);
     }
@@ -110,11 +96,12 @@ public class PlayerController : ArrowShooter
         forearm_back.LookAt2D (out1);
         cross_arm_back.position = out1;
     }
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Handles.DrawWireDisc(arm_back.position, Vector3.forward, _lengthBackArm);
+        UnityEditor.Handles.DrawWireDisc(arm_back.position, Vector3.forward, _lengthBackArm);
         if(endArrow)
-            Handles.DrawWireDisc(endArrow.position, Vector3.forward, _lengthForeArm);
+            UnityEditor.Handles.DrawWireDisc(endArrow.position, Vector3.forward, _lengthForeArm);
     }
+#endif
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Hourglass : MonoBehaviour
+public class Hourglass : Singleton<Hourglass>
 {
 
     private Scrollbar topSand;

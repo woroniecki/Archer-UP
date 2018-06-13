@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 public class Arrow : removeGrabage
 {
@@ -89,13 +88,15 @@ public class Arrow : removeGrabage
     /// enable or disable gravity and box collider
     /// </summary>
     /// <param name="enable">if true than enable in other wise disable physic</param>
-    void EnablePhysic(bool enable)
+    void EnablePhysic(bool enable, bool removeRb = false)
     {
         if (!enable)
         {
             rb.velocity = Vector3.zero;
             rb.Sleep();
             rb.isKinematic = true;
+            if (removeRb)
+                Destroy(rb);
         }
         else
         {
@@ -122,7 +123,7 @@ public class Arrow : removeGrabage
             && coll.transform.tag != "Arrow"
              && coll.transform.tag != "Teleport")
         {
-            EnablePhysic(false);
+            EnablePhysic(false, true);
             EventManager.TriggerEvent("ArrowDisable", transform);
             physicsState = 2;
             if (coll.tag == "Target")

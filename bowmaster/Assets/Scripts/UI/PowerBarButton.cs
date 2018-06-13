@@ -12,7 +12,7 @@ public class PowerBarButton : MonoBehaviour {
     private bool isPressed = false;
 
     void Start () {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerController = PlayerController.instance as PlayerController;
         powerBar = Utility.FindChildByName("PowerBar", transform).GetComponent<Scrollbar>();
     }
 

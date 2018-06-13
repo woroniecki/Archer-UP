@@ -22,17 +22,16 @@ public class FlyingStar : MonoBehaviour
     /// </summary>
     public int starNo;
 
-    private Transform particle;
+    public Transform particle;
     private Transform accelerometer;
     private bool moveOn = true;
     private bool scaleOn = true;
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("StarsContainer").GetComponent<StarsContainer>();
-        accelerometer = GameObject.FindGameObjectWithTag("Accelerometer").transform;
+        target = StarsContainer.instance;
+        accelerometer = Accelerometer.instance.transform;
         targetScale = target.getRealStarSize();
         starNo = target.addStar();
-        particle = Utility.FindChildByName("StarParticle", transform);
         particle.rotation = Quaternion.FromToRotation(transform.position, target.getWorldPosStar(starNo));
         transform.localScale = new Vector3(startScale, startScale, 1);
     }
@@ -71,7 +70,7 @@ public class FlyingStar : MonoBehaviour
     void FinnishVisualisation()
     {
         target.createUiStar(starNo);
-        ParticleSystem particS = Utility.FindChildByName("StarParticle", particle).GetComponent<ParticleSystem>();
+        ParticleSystem particS = particle.GetComponent<ParticleSystem>();
         transform.GetComponent<SpriteRenderer>().enabled = false;
         particS.startSize = 0;
         Object.Destroy(gameObject, 1.0f);

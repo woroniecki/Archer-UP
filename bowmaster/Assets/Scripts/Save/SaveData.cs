@@ -80,7 +80,7 @@ public class SaveData : ScriptableObject {
         }
     }
 
-    public void SetData(string key, int value, saveDictionariesTypes type) {
+    public void SetData(string key, int value, saveDictionariesTypes type, bool save = true) {
         if (!dictionaries.ContainsKey(type))
             dictionaries.Add(type, new SaveDict<string, int>(20));
 
@@ -88,7 +88,8 @@ public class SaveData : ScriptableObject {
 
         if (keyIndex != -1 && dictionaries[type].GetValue(keyIndex) != value) {
             dictionaries[type].SetValue(keyIndex, value);
-            Save(type);
+            if(save)
+                Save(type);
             return;
         }
         else if (keyIndex != -1 && dictionaries[type].GetValue(keyIndex) == value)
@@ -97,7 +98,8 @@ public class SaveData : ScriptableObject {
         }
 
         dictionaries[type].Add(key, value);
-        Save(type);
+        if(save)
+            Save(type);
     }
 
     public int GetData(string key, int defaultValue, saveDictionariesTypes type) {

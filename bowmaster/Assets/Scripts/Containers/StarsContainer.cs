@@ -3,9 +3,8 @@
 /// <summary>
 /// contains all ui stars and control target points of stars in real world(which are flying)
 /// </summary>
-public class StarsContainer : MonoBehaviour
+public class StarsContainer : Singleton<StarsContainer>
 {
-
     /// <summary>
     /// transform of object which represents point where stars should go in unscaled canvas
     /// </summary>
@@ -20,7 +19,7 @@ public class StarsContainer : MonoBehaviour
 
     void Start()
     {
-        gameController = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<GameController>();
+        gameController = GameController.instance;
         widthUI = Utility.FindChildByName("StarI_comparator", transform).GetComponent<RectTransform>().rect.width;
         Vector3 realSize = (Camera.main.ScreenPointToRay(new Vector3(widthUI, 0, 0)).origin
                            - Camera.main.ScreenPointToRay(new Vector3(0, 0, 0)).origin);
